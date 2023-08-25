@@ -214,10 +214,10 @@ class _FlowBuilderState<T> extends State<FlowBuilder<T>> {
           pages: _pages,
           observers: [_FlowNavigatorObserver(), ...widget.observers],
           onPopPage: (route, dynamic result) {
+            widget.onDidPop?.call(result);
             if (_history.length > 1) {
               _history.removeLast();
               _didPop = true;
-              widget.onDidPop?.call(result);
               _controller.update((_) => _history.last);
             }
             if (_pages.length > 1) _pages.removeLast();
